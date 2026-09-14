@@ -81,7 +81,13 @@ init_db()
 
 @app.get("/")
 def home():
-    return FileResponse(ROOT / "static" / "index.html")
+     return FileResponse(ROOT / "index.html")
+
+
+                        
+
+
+                        
 
 
 @app.get("/api/state")
