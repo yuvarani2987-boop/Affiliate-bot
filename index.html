@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Angelovea AI</title>
+<style>
+:root{
+  --bg:#f4f7fb;--card:#fff;--ink:#122033;--muted:#758094;--line:#e4e8f0;
+  --purple:#6f35f1;--pink:#f43d78;--navy:#0f2138;--soft:#f5efff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#fbfcff,#f0f5fb);font-family:Inter,system-ui,Arial;color:var(--ink)}
+header{position:sticky;top:0;z-index:10;height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 22px}
+.brand{display:flex;align-items:center;gap:14px;font-size:24px;font-weight:800}
+.logo{width:52px;height:52px;border-radius:17px;background:linear-gradient(135deg,var(--purple),var(--pink));display:grid;place-items:center;color:#fff;font-size:25px}
+.icons{display:flex;gap:16px;font-size:27px}
+.wrap{max-width:760px;margin:0 auto;padding:26px 20px 70px;position:relative}
+.timeline{position:absolute;left:39px;top:20px;bottom:50px;width:4px;background:linear-gradient(#ded5ff,#f4c2dc)}
+.step{position:relative;margin:0 0 36px 100px}
+.badge{position:absolute;left:-100px;top:28px;width:58px;height:58px;border-radius:18px;background:#10233c;color:#fff;display:grid;place-items:center;font-size:22px;font-weight:800;border:8px solid #f4f7fb}
+.card{background:#fff;border:1px solid #dfe5ed;border-radius:28px;padding:30px;box-shadow:0 14px 30px rgba(28,41,61,.07)}
+.eyebrow{font-size:16px;letter-spacing:1.8px;color:var(--purple);font-weight:900;margin-bottom:10px}
+h2{font-size:33px;line-height:1.1;margin:0 0 12px}
+p{font-size:18px;line-height:1.55;color:var(--muted);margin:0 0 20px}
+input,textarea,select{width:100%;padding:18px;border-radius:17px;border:1px solid #d6dce5;background:#fbfcfe;font-size:18px;color:var(--ink);outline:none}
+textarea{min-height:120px;resize:vertical}
+label{font-size:16px;font-weight:700;display:block;margin:0 0 8px}
+.btn{width:100%;border:0;border-radius:16px;padding:18px 20px;font-size:20px;font-weight:800;cursor:pointer}
+.primary{background:var(--purple);color:#fff}
+.gradient{background:linear-gradient(100deg,#8d39f6,#f13e79);color:#fff}
+.secondary{background:#f4efff;color:#5e35c9;border:1px solid #dfd4ff}
+.note{border-top:1px solid var(--line);margin-top:20px;padding-top:20px;display:flex;gap:12px;color:var(--muted);font-size:17px;line-height:1.45}
+.prompt-card{border:1px solid #dce2ea;border-radius:18px;padding:17px;margin-top:14px}
+.prompt-card b{display:block;font-size:19px;margin-bottom:6px}
+.prompt-card span{color:var(--muted)}
+.selected{background:#102238;border-radius:24px;padding:24px;color:#fff;margin-top:22px}
+.selected-row{display:flex;gap:16px;align-items:center;margin-bottom:22px}
+.thumb{width:96px;height:96px;border-radius:18px;object-fit:cover;background:#ddd}
+.selected h3{margin:0 0 7px;font-size:23px}.selected p{color:#c8d2df;font-size:16px;margin:0}
+.upload{border:2px dashed #a78be7;background:#faf7ff;color:#6a42cf;border-radius:18px;padding:22px;text-align:center;font-size:19px;font-weight:800}
+.row{display:flex;gap:12px}.row>*{flex:1}
+.status{margin-top:14px;padding:13px 14px;background:#f6f8fb;border-radius:13px;color:#6e7989;font-size:14px;white-space:pre-wrap}
+@media(max-width:620px){
+ header{height:68px;padding:0 18px}.brand{font-size:20px}.logo{width:46px;height:46px}
+ .wrap{padding:20px 12px 60px}.timeline{left:29px}.step{margin-left:74px}.badge{left:-73px;width:50px;height:50px;border-radius:16px}
+ .card{padding:24px 20px;border-radius:24px}h2{font-size:29px}.row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">✧</div><span>Angelovea AI</span></div>
+  <div class="icons">◯ ⇥</div>
+</header>
+
+<div class="wrap">
+<div class="timeline"></div>
+
+<section class="step">
+  <div class="badge">1</div>
+  <div class="card">
+    <div class="eyebrow">TIKTOK ACCOUNT</div>
+    <h2>Connect your TikTok account</h2>
+    <p>Use TikTok's secure login page. You can connect up to five account slots.</p>
+    <label>Account name (optional)</label>
+    <input id="ttName" placeholder="Indianfashionbotique"/>
+    <div class="note">ⓘ TikTok opens its own secure login page. Your password is not stored by this bot.</div>
+    <button class="btn primary" style="margin-top:20px" onclick="connectTikTok()">Login / switch TikTok account ↗</button>
+    <div id="ttStatus" class="status">Waiting for TikTok connection.</div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="badge">2</div>
+  <div class="card">
+    <div class="eyebrow">GOOGLE ACCOUNT</div>
+    <h2>Log in to Google Flow</h2>
+    <p>Choose the Google account that has your Flow credits.</p>
+    <div class="note">ⓘ Your Flow credits stay inside your Google account.</div>
+    <button class="btn primary" style="margin-top:20px" onclick="window.open('https://labs.google/fx/tools/flow','_blank')">Login to Google Flow ↗</button>
+  </div>
+</section>
+
+<section class="step">
+  <div class="badge">3</div>
+  <div class="card">
+    <div class="eyebrow">CHATGPT ACCOUNT</div>
+    <h2>Connect AI image generation</h2>
+    <p>This deployment uses your configured OpenAI API key for image generation and captions.</p>
+    <button class="btn secondary" onclick="alert('Add OPENAI_API_KEY in Render environment variables.')">Check ChatGPT / OpenAI setup</button>
+  </div>
+</section>
+
+<section class="step">
+  <div class="badge">4</div>
+  <div class="card">
+    <div class="eyebrow">PRODUCT</div>
+    <h2>Paste your product link</h2>
+    <p>We will try to load public product images and product details.</p>
+    <input id="productUrl" placeholder="Paste TikTok Shop or product link"/>
+    <button class="btn primary" style="margin-top:14px" onclick="loadProduct()">Get product images</button>
+    <div id="productStatus" class="status">Waiting for product link.</div>
+    <div id="productImages" class="row" style="margin-top:14px;flex-wrap:wrap"></div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="badge">5</div>
+  <div class="card">
+    <div class="eyebrow">AI IMAGE</div>
+    <h2>Create your product images</h2>
+    <p>Choose a product image, select a saved prompt, then generate.</p>
+    <label>Saved prompt</label>
+    <select id="promptSelect" onchange="usePrompt()"></select>
+    <textarea id="promptBody" style="margin-top:12px" placeholder="Prompt"></textarea>
+    <div class="row" style="margin-top:12px">
+      <button class="btn secondary" onclick="savePrompt()">Save prompt</button>
+      <button class="btn secondary" onclick="copyPrompt()">Copy</button>
+    </div>
+    <div class="selected" id="selectedBox" style="display:none">
+      <div class="selected-row">
+        <img id="selectedThumb" class="thumb"/>
+        <div><h3>Product image selected</h3><p>Prompt is ready for image generation.</p></div>
+      </div>
+      <button class="btn gradient" onclick="generateImage()">✧ Generate images ↗</button>
+    </div>
+    <div id="genStatus" class="status">Choose a product image first.</div>
+    <div id="generated" style="margin-top:14px"></div>
+    <div style="margin-top:24px">
+      <div class="eyebrow">ADD YOUR FINISHED AI IMAGES</div>
+      <p>Download them from Gemini or ChatGPT, then add them here for Google Flow.</p>
+      <div class="upload">☁ Add generated images</div>
+    </div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="badge">6</div>
+  <div class="card">
+    <div class="eyebrow">GOOGLE FLOW</div>
+    <h2>Use your images to generate a video</h2>
+    <p>Open Flow, upload your selected/generated image, and use the prepared video prompt.</p>
+    <textarea id="videoPrompt">Create a 9:16 TikTok affiliate video from this product image. Natural model movement, premium commercial quality, realistic fabric/product motion, 6–8 seconds, no on-screen text.</textarea>
+    <div class="row" style="margin-top:12px">
+      <button class="btn secondary" onclick="navigator.clipboard.writeText(document.getElementById('videoPrompt').value)">Copy prompt</button>
+      <button class="btn primary" onclick="window.open('https://labs.google/fx/tools/flow','_blank')">Open Google Flow ↗</button>
+    </div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="badge">7</div>
+  <div class="card">
+    <div class="eyebrow">TIKTOK POST</div>
+    <h2>Prepare and publish</h2>
+    <p>Generate a caption, choose your connected TikTok account, and publish using TikTok's approved posting API.</p>
+    <textarea id="caption" placeholder="Caption"></textarea>
+    <button class="btn secondary" style="margin-top:12px" onclick="makeCaption()">Generate caption</button>
+    <label style="margin-top:16px">Final HTTPS video URL</label>
+    <input id="videoUrl" placeholder="https://your-verified-domain.com/video.mp4"/>
+    <label style="margin-top:16px"><input id="consent" type="checkbox" style="width:auto;margin-right:8px"> I confirm I want to publish this post now</label>
+    <button class="btn gradient" style="margin-top:14px" onclick="postTikTok()">Post to TikTok</button>
+    <div id="postStatus" class="status">TikTok posting works after official OAuth/API setup.</div>
+  </div>
+</section>
+</div>
+
+<script>
+let STATE={prompts:[],accounts:[]}, PRODUCT=null, selectedImage=null;
+async function api(path,opts={}){const r=await fetch(path,{headers:{'Content-Type':'application/json'},...opts});let d={};try{d=await r.json()}catch{};if(!r.ok)throw new Error(d.detail||('HTTP '+r.status));return d}
+async function boot(){try{STATE=await api('/api/state');const s=document.getElementById('promptSelect');s.innerHTML='';STATE.prompts.forEach(p=>s.innerHTML+=`<option value="${p.id}">${p.name}</option>`);usePrompt()}catch(e){}}
+function usePrompt(){const id=+document.getElementById('promptSelect').value;const p=STATE.prompts.find(x=>x.id===id);if(p)document.getElementById('promptBody').value=p.body}
+async function savePrompt(){const id=+document.getElementById('promptSelect').value;const p=STATE.prompts.find(x=>x.id===id);if(!p)return;await api('/api/prompts/'+id,{method:'PUT',body:JSON.stringify({name:p.name,body:document.getElementById('promptBody').value})});document.getElementById('genStatus').textContent='Prompt saved.'}
+async function copyPrompt(){await navigator.clipboard.writeText(document.getElementById('promptBody').value);document.getElementById('genStatus').textContent='Prompt copied.'}
+function connectTikTok(){const a=STATE.accounts.find(x=>x.platform==='TikTok'&&!x.connected)||STATE.accounts.find(x=>x.platform==='TikTok');if(!a){document.getElementById('ttStatus').textContent='No TikTok account slot found.';return}window.location='/api/tiktok/login/'+a.id}
+async function loadProduct(){const st=document.getElementById('productStatus');st.textContent='Loading…';try{PRODUCT=await api('/api/product',{method:'POST',body:JSON.stringify({url:document.getElementById('productUrl').value})});st.textContent=PRODUCT.title+'\\n'+(PRODUCT.description||'');const box=document.getElementById('productImages');box.innerHTML='';PRODUCT.images.slice(0,4).forEach(u=>{const img=document.createElement('img');img.src=u;img.style='width:120px;height:140px;object-fit:cover;border-radius:16px;border:2px solid #eee;cursor:pointer';img.onclick=()=>selectImage(u,img);box.appendChild(img)})}catch(e){st.textContent=e.message}}
+function selectImage(u,img){selectedImage=u;document.querySelectorAll('#productImages img').forEach(x=>x.style.border='2px solid #eee');img.style.border='3px solid #7a44ef';document.getElementById('selectedBox').style.display='block';document.getElementById('selectedThumb').src=u;document.getElementById('genStatus').textContent='Product image selected.'}
+async function generateImage(){const st=document.getElementById('genStatus');st.textContent='Generating image…';try{const d=await api('/api/generate-image',{method:'POST',body:JSON.stringify({image_url:selectedImage,prompt:document.getElementById('promptBody').value,engine:'openai'})});document.getElementById('generated').innerHTML=`<img src="${d.url}" style="width:100%;max-width:360px;border-radius:22px">`;st.textContent='Image generated.'}catch(e){st.textContent=e.message}}
+async function makeCaption(){try{const d=await api('/api/caption',{method:'POST',body:JSON.stringify({title:PRODUCT?.title||'',description:PRODUCT?.description||'',product_url:document.getElementById('productUrl').value})});document.getElementById('caption').value=d.caption}catch(e){document.getElementById('postStatus').textContent=e.message}}
+async function postTikTok(){const a=STATE.accounts.find(x=>x.platform==='TikTok'&&x.connected);if(!a){document.getElementById('postStatus').textContent='Connect a TikTok account first.';return}try{const d=await api('/api/tiktok/direct-post',{method:'POST',body:JSON.stringify({account_id:a.id,video_url:document.getElementById('videoUrl').value,title:document.getElementById('caption').value,privacy_level:'SELF_ONLY',is_aigc:true,consent:document.getElementById('consent').checked})});document.getElementById('postStatus').textContent='TikTok accepted the publish request.\\n'+JSON.stringify(d,null,2)}catch(e){document.getElementById('postStatus').textContent=e.message}}
+boot();
+</script>
+</body>
+</html>
