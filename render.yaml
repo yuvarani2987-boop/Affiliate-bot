@@ -6,3 +6,10 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app_v2:app --host 0.0.0.0 --port $PORT
     autoDeploy: true
+    envVars:
+      - key: TIKTOK_REDIRECT_URI
+        value: https://affiliate-bot-e8ui.onrender.com/api/tiktok/callback
+      - key: TIKTOK_SCOPES
+        value: user.info.basic,video.publish
+      - key: GOOGLE_FLOW_URL
+        value: https://labs.google/fx/tools/flow
